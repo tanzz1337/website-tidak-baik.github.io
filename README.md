@@ -1,2 +1,2 @@
 # website-tidak-baik.github.io
-Contoh Pengelolaan Sebuah Website Dengan Cara Yang Tidak Baik
+Berikut adalah contoh pengelolaan yang kurang baik pada sebuah website,dimana kerentananmasih banyak ditemukan
