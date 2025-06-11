@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Simulasi Form Login - CAPTCHA vs Tanpa CAPTCHA</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f2f2f2;
+      display: flex;
+      justify-content: space-around;
+      padding: 50px;
+      flex-wrap: wrap;
+    }
+
+    .form-container {
+      background: white;
+      width: 320px;
+      margin: 20px;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .captcha-box {
+      background-color: #e9ecef;
+      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .status {
+      text-align: center;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    .safe {
+      color: green;
+    }
+
+    .danger {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Form Login TANPA CAPTCHA -->
+  <div class="form-container">
+    <h2>Login Tanpa CAPTCHA</h2>
+    <input type="text" id="user1" placeholder="Username">
+    <input type="password" id="pass1" placeholder="Password">
+    <button onclick="loginNoCaptcha()">Login</button>
+    <div id="status1" class="status"></div>
+  </div>
+
+  <!-- Form Login DENGAN CAPTCHA -->
+  <div class="form-container">
+    <h2>Login Dengan CAPTCHA</h2>
+    <input type="text" id="user2" placeholder="Username">
+    <input type="password" id="pass2" placeholder="Password">
+
+    <div class="captcha-box" id="captcha"></div>
+    <input type="number" id="captchaInput" placeholder="Jawaban CAPTCHA">
+
+    <button onclick="loginWithCaptcha()">Login</button>
+    <div id="status2" class="status"></div>
+  </div>
+
+  <script>
+    const correctUser = "admin";
+    const correctPass = "admin";
+
+    // Login tanpa CAPTCHA (Rentan Brute Force)
+    function loginNoCaptcha() {
+      const user = document.getElementById("user1").value;
+      const pass = document.getElementById("pass1").value;
+      const status = document.getElementById("status1");
+
+      if (user === correctUser && pass === correctPass) {
+        status.innerText = "Login Berhasil!";
+        status.className = "status safe";
+      } else {
+        status.innerText = "Login Gagal!";
+        status.className = "status danger";
+      }
+    }
+
+    // CAPTCHA acak
+    let angka1 = Math.floor(Math.random() * 10) + 1;
+    let angka2 = Math.floor(Math.random() * 10) + 1;
+    document.getElementById("captcha").innerText = `${angka1} + ${angka2} = ?`;
+
+    // Login dengan CAPTCHA
+    function loginWithCaptcha() {
+      const user = document.getElementById("user2").value;
+      const pass = document.getElementById("pass2").value;
+      const jawaban = parseInt(document.getElementById("captchaInput").value);
+      const status = document.getElementById("status2");
+
+      if (jawaban !== (angka1 + angka2)) {
+        status.innerText = "CAPTCHA Salah!";
+        status.className = "status danger";
+        return;
+      }
+
+      if (user === correctUser && pass === correctPass) {
+        status.innerText = "Login Berhasil!";
+        status.className = "status safe";
+      } else {
+        status.innerText = "Login Gagal!";
+        status.className = "status danger";
+      }
+    }
+  </script>
+
+</body>
+</html>
