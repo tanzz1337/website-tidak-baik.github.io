@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Simulasi Backup Lokal</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+      padding: 40px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    textarea {
+      width: 100%;
+      height: 120px;
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      resize: vertical;
+    }
+
+    .buttons {
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 10px 16px;
+      margin-right: 10px;
+      font-size: 14px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .backup-btn {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .tampil-btn {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .simpan-btn {
+      background-color: #ffc107;
+      color: black;
+    }
+
+    .hasil, .sementara {
+      margin-top: 30px;
+      background: #f9f9f9;
+      padding: 15px;
+      border-left: 4px solid #ccc;
+      border-radius: 6px;
+      white-space: pre-wrap;
+    }
+
+    .warning {
+      margin-top: 25px;
+      background: #fff4e6;
+      border-left: 4px solid #ffa502;
+      padding: 15px;
+      color: #a15c00;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Catatan Harian</h2>
+    <p>Masukkan catatan Anda di bawah ini:</p>
+    <textarea id="inputData" placeholder="Tulis catatan di sini..."></textarea>
+
+    <div class="buttons">
+      <button class="simpan-btn" onclick="simpanSementara()">Simpan Saja</button>
+      <button class="backup-btn" onclick="backup()">Backup</button>
+      <button class="tampil-btn" onclick="tampilkanBackup()">Tampilkan Backup</button>
+    </div>
+
+    <div class="sementara" id="hasilSementara" style="display:none;"></div>
+    <div class="hasil" id="hasilBackup" style="display:none;"></div>
+
+    <div class="warning">
+      ⚠️ Simulasi: data <strong>“Simpan Saja”</strong> hanya tampil sementara dan akan hilang jika halaman di-refresh.<br>
+      Backup menggunakan localStorage hanya menyimpan di browser, bukan ke server.
+    </div>
+  </div>
+
+  <script>
+    function simpanSementara() {
+      const data = document.getElementById("inputData").value;
+      const hasil = document.getElementById("hasilSementara");
+
+      if (data.trim() === "") {
+        alert("Masukkan data terlebih dahulu.");
+        return;
+      }
+
+      hasil.style.display = "block";
+      hasil.innerText = "Data disimpan sementara (tidak permanen):\n\n" + data;
+    }
+
+    function backup() {
+      const data = document.getElementById("inputData").value;
+      if (data.trim() === "") {
+        alert("Tidak ada data untuk dibackup.");
+        return;
+      }
+      localStorage.setItem("backupData", data);
+      alert("Backup berhasil disimpan di browser!");
+    }
+
+    function tampilkanBackup() {
+      const data = localStorage.getItem("backupData");
+      const hasil = document.getElementById("hasilBackup");
+      if (data) {
+        hasil.style.display = "block";
+        hasil.innerText = "Isi backup Anda:\n\n" + data;
+      } else {
+        hasil.style.display = "block";
+        hasil.innerText = "Tidak ada backup yang ditemukan.";
+      }
+    }
+  </script>
+
+</body>
+</html>

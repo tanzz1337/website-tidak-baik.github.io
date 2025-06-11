@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Simulasi CMS Lawas & Plugin Rentan</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background-color: #f4f4f4;
+    }
+
+    .navbar {
+      background-color: #2c3e50;
+      color: white;
+      padding: 15px 20px;
+      font-size: 18px;
+    }
+
+    .sidebar {
+      background-color: #34495e;
+      color: white;
+      width: 200px;
+      height: 100vh;
+      position: fixed;
+      top: 50px;
+      left: 0;
+      padding: 20px;
+    }
+
+    .sidebar a {
+      display: block;
+      color: #ecf0f1;
+      text-decoration: none;
+      margin-bottom: 15px;
+    }
+
+    .sidebar a:hover {
+      text-decoration: underline;
+    }
+
+    .content {
+      margin-left: 220px;
+      padding: 30px;
+    }
+
+    .plugin-card {
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-left: 5px solid red;
+    }
+
+    .plugin-card h3 {
+      margin-top: 0;
+      color: #c0392b;
+    }
+
+    .xss-demo {
+      background: #fff;
+      padding: 15px;
+      border: 1px solid #ddd;
+      margin-top: 30px;
+    }
+
+    input {
+      padding: 8px;
+      width: 300px;
+      font-size: 14px;
+      margin-right: 10px;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 20px;
+      background: #ecf0f1;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    ⚠️ CMS Lawas v2.3 Admin Panel
+  </div>
+
+  <div class="sidebar">
+    <a href="#">Dashboard</a>
+    <a href="#">Artikel</a>
+    <a href="#">Kelola Plugin</a>
+    <a href="#">Pengaturan</a>
+  </div>
+
+  <div class="content">
+    <h2>Daftar Plugin</h2>
+
+    <div class="plugin-card">
+      <h3>SimpleContactForm v1.2</h3>
+      <p>Plugin ini belum diperbarui sejak 2013. Rentan terhadap <strong>Stored XSS</strong>.</p>
+    </div>
+
+    <div class="plugin-card">
+      <h3>FancyGallery v1.0</h3>
+      <p>Plugin ini memiliki celah <strong>unrestricted file upload</strong> yang memungkinkan penyerang mengunggah file shell.</p>
+    </div>
+
+    <div class="xss-demo">
+      <h3>Simulasi Input Komentar (Plugin Lawas)</h3>
+      <p>Ketik komentar Anda (simulasi XSS):</p>
+      <input type="text" id="komentar" placeholder="Tulis komentar di sini" />
+      <button onclick="tampilkanKomentar()">Kirim</button>
+
+      <div id="outputKomentar" style="margin-top:20px;"></div>
+    </div>
+
+    <div class="footer">
+      CMS Lawas v2.3 - Simulasi Edukasi Keamanan Web
+    </div>
+  </div>
+
+  <script>
+    function tampilkanKomentar() {
+      const isi = document.getElementById('komentar').value;
+      const output = document.getElementById('outputKomentar');
+
+      // SENGAJA RENTAN - untuk simulasi XSS
+      output.innerHTML = "<b>Komentar Anda:</b> " + isi;
+    }
+  </script>
+
+</body>
+</html>

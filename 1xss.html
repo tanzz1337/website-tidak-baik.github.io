@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Demo XSS: Input Nama</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f2f5;
+      text-align: center;
+      padding: 50px;
+      position: relative;
+    }
+
+    .home-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: #6c757d;
+      color: white;
+      padding: 10px 16px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    .home-btn:hover {
+      background-color: #5a6268;
+    }
+
+    form {
+      background: #ffffff;
+      padding: 20px;
+      display: inline-block;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      width: 250px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-right: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    h1, h2 {
+      color: #333;
+    }
+
+    h2 {
+      margin-top: 30px;
+    }
+
+    .payload-box {
+      background: #fff;
+      padding: 15px;
+      max-width: 600px;
+      margin: 0 auto 30px auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    code {
+      background-color: #eee;
+      padding: 5px 10px;
+      border-radius: 4px;
+      display: inline-block;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .copy-btn {
+      margin-left: 10px;
+      background-color: #28a745;
+    }
+
+    .copy-btn:hover {
+      background-color: #1e7e34;
+    }
+  </style>
+</head>
+<body>
+
+  <a class="home-btn" href="index.html">🏠 Home</a>
+
+  <h1>Masukkan Nama Anda</h1>
+  <form method="GET">
+    <input type="text" name="nama" placeholder="Tulis nama di sini">
+    <button type="submit">Kirim</button>
+  </form>
+
+  <div class="payload-box">
+    <h3>Contoh Payload XSS</h3>
+    <code id="xssPayload">&lt;script&gt;alert('XSS!')&lt;/script&gt;</code>
+    <button class="copy-btn" onclick="copyPayload()">Copy</button>
+  </div>
+
+  <h2>Halo, 
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      document.write(params.get("nama") || "pengunjung");
+    </script>
+  !</h2>
+
+  <script>
+    function copyPayload() {
+      const payloadText = document.getElementById("xssPayload").innerText;
+      navigator.clipboard.writeText(payloadText).then(() => {
+        alert("Payload berhasil disalin!");
+      }).catch(err => {
+        alert("Gagal menyalin payload");
+        console.error(err);
+      });
+    }
+  </script>
+</body>
+</html>

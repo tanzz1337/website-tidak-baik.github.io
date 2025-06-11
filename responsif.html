@@ -1,0 +1,62 @@
+<!-- responsive.html -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contoh Website Responsif</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      background-color: #007bff;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .card {
+      background: #f8f8f8;
+      padding: 20px;
+      flex: 1 1 300px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Website Responsif</h1>
+  </header>
+
+  <div class="container">
+    <p>Website ini menyesuaikan tampilannya berdasarkan ukuran layar.</p>
+    <div class="grid">
+      <div class="card">Konten 1</div>
+      <div class="card">Konten 2</div>
+      <div class="card">Konten 3</div>
+    </div>
+  </div>
+
+</body>
+</html>
