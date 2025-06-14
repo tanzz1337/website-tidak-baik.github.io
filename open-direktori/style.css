@@ -1,0 +1,25 @@
+body {
+  font-family: monospace;
+  background-color: #fff;
+  color: #000;
+  margin: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 8px 12px;
+  border-bottom: 1px solid #ccc;
+}
+
+a {
+  color: #0645AD;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
